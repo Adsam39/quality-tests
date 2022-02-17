@@ -7,8 +7,12 @@ data class Bank(val accounts: MutableMap<String, Account> = mutableMapOf()) {
     }
 
     fun transfer(sender: Account, receiver: Account, amount: Double) {
-        sender.withdraw(amount)
-        receiver.deposit(amount)
+        if(sender.balance - amount > 0){
+            sender.transfer(receiver, amount)
+        }
+        else {
+            throw RuntimeException("Compte ne peut pas être créé")
+        }
     }
 
     fun dashboard() {
